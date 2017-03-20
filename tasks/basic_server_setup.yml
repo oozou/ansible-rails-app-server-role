@@ -1,0 +1,24 @@
+---
+- name: "basic debian based server setup"
+  include_role:
+    name: oozou.basic-server-setup
+  vars:
+    default_additional_packages_to_install:
+      - nodejs
+      - redis-server
+      - redis-tools
+      - imagemagick
+      - libpq-dev
+    additional_packages_to_install:
+      "{{ default_additional_packages_to_install + basic_server_setup.additional_packages_to_install }}"
+- name: "setup firewall"
+  include_role:
+    name: oozou.ufw
+  vars:
+    ufw_allowed_ports:
+      - "22"
+      - "80"
+      - "443"
+- name: "add devops user"
+  include_role:
+    name: oozou.add-admin-user
