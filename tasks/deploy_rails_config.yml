@@ -1,4 +1,5 @@
 ---
+
 - name: "deploy new rails configuration"
   include_role:
     name: oozou.deploy-rails-env-vars
@@ -32,3 +33,13 @@
       deploy: true
       template: "{{template_dir}}/newrelic.yml.j2"
       dest: "{{app_shared_dir}}/config/newrelic.yml"
+
+- name: "restart puma"
+  service:
+    name: puma
+    state: restarted
+
+- name: "restart sidekiq"
+  service:
+    name: sidekiq
+    state: restarted
