@@ -1,0 +1,6 @@
+---
+- name: "install and setup ntp"
+  include_role:
+    name: ansible-role-ntp
+    vars:
+      ntp_enabled: true

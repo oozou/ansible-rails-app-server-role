@@ -2,8 +2,11 @@
   action: user name={{deployer.username}}
 
 - name: Add ssh public keys to authorized_keys
-  authorized_key: user={{deployer.username}} key={{ item }}
-  with_items: "{{ deployer.authorized_keys }}"
+  authorized_key:
+    user: "{{ deployer.username }}"
+    key: "{{ deployer_authorized_keys|join('\n') }}"
+    state: present
+    exclusive: True
 
 - name: Remove sudo group rights
   action: lineinfile dest=/etc/sudoers regexp="^%sudo" state=absent
@@ -15,14 +18,14 @@
   file: path="{{deployer.home_dir}}/.ssh" state=directory
 
 - name: Install ssh private key
-  copy: 
+  copy:
     content: "{{deployer.ssh_private_key}}"
     dest: "{{deployer.home_dir}}/.ssh/id_rsa"
     owner: "{{deployer.username}}"
     mode: 0400
 
 - name: Install ssh public key
-  copy: 
+  copy:
     content: "{{deployer.ssh_public_key}}"
     dest: "{{deployer.home_dir}}/.ssh/id_rsa.pub"
     owner: "{{deployer.username}}"

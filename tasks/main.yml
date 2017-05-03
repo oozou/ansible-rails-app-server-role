@@ -3,27 +3,41 @@
 # 3. setup firewall
 # 4. add devops admin user account
 - include: basic_server_setup.yml
+  tags:
+    - basic_server_setup
 
 # 5. create deployer user account
 - include: deployer.yml
+  tags:
+    - deployer
 
 # 6. install ntp
-# 7. install nginx
-- include: ntp_nginx.yml
+- include: ntp.yml
+  tags:
+    - ntp
 
-# 8. configure nginx
-- include: nginx_config.yml
+# 7. install and configure nginx
+- include: nginx.yml
+  tags:
+    - nginx
 
 # 9. install systemd files for puma and sidekiq
-- include: puma_service.yml
-- include: sidekiq_service.yml
+- include: systemd_services.yml
+  tags:
+    - systemd_services
 
-# 10. install rbenv & install bundler gem
+# 10. install rbenv, ruby and bundler gem
 - include: rbenv.yml
+  tags:
+    - rbenv
 
 # 11. install postgresql
 - include: postgresql.yml
+  tags:
+    - postgresql
 
 # 12. make shared directory for capistrano
 # 13. deploy rails config files into shared directory
 - include: deploy_rails_config.yml
+  tags:
+    - deploy_rails_config
