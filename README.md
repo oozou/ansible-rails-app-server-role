@@ -26,8 +26,8 @@ the following:
       * open port 22
       * open port 80
       * open port 443
-    * setup admin user account for devops user(s) using [oozou.add-admin-user](https://github.com/oozou/ansible-add-admin-user)
-  * setup a user account for deploymment
+  * set authorized keys for user ubuntu
+  * setup a user account for deployment
     * setup ssh private and public keys
     * add specified ssh public keys to authorized_keys for deployment user
       * this can include circleci's ssh pub key for capistrano deployments
@@ -209,8 +209,14 @@ users:
     deployer: true
     ssh_key: |
       ssh-rsa AAAAxxxxxxxxxxxAAAA circle-ci
+  - description: admin1
+    deployer: true
+    ubuntu: true
+    ssh_key: |
+      ssh-rsa AAAAxxxxxxxxxxxAAAA developer@example.com
   - description: developer1
     deployer: true
+    ubuntu: false
     ssh_key: |
       ssh-rsa AAAAxxxxxxxxxxxAAAA developer@example.com
 ```
@@ -242,6 +248,7 @@ EXAMPLE PLAYBOOK
   roles:
   - role: oozou.rails-app-server-role
     deployer_authorized_keys: "{{ users | selectattr('deployer','equalto',true) | map(attribute='ssh_key') | list }}"
+    ubuntu_authorized_keys: "{{ users | selectattr('ubuntu','equalto',true) | map(attribute='ssh_key') | list }}"
 
 ```
 
