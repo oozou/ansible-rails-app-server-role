@@ -1,4 +1,4 @@
-- name: Add ssh public keys to authorized_keys
+- name: Add ssh public keys to authorized_keys of user ubuntu
   when: ubuntu_authorized_keys is defined
   authorized_key:
     user: "ubuntu"

@@ -7,9 +7,9 @@
     - basic_server_setup
 
 # 4. set ubuntu user
-- include: ubuntu.yml
+- include: ubuntu_user.yml
   tags:
-    - ubuntu
+    - ubuntu_user
 
 # 4. create deployer user account
 - include: deployer.yml
