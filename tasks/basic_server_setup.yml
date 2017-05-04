@@ -5,8 +5,6 @@
   vars:
     default_additional_packages_to_install:
       - nodejs
-      - redis-server
-      - redis-tools
       - imagemagick
       - libpq-dev
     additional_packages_to_install:
@@ -19,4 +17,3 @@
     ufw_allowed_ports:
       - "22"
       - "80"
-      - "443"

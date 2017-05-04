@@ -35,11 +35,11 @@
       dest: "{{app_shared_dir}}/config/newrelic.yml"
 
 - name: "restart puma"
-  service:
+  systemd:
     name: puma
-    state: restarted
+    state: reloaded
 
 - name: "restart sidekiq"
-  service:
+  systemd:
     name: sidekiq
-    state: restarted
+    state: reloaded
