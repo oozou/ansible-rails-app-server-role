@@ -11,6 +11,11 @@
   tags:
     - deployer
 
+# 8. install rbenv, ruby and bundler gem
+- include: rbenv.yml
+  tags:
+    - rbenv
+
 # 5. install ntp
 - include: ntp.yml
   tags:
@@ -25,11 +30,6 @@
 - include: systemd_services.yml
   tags:
     - systemd_services
-
-# 8. install rbenv, ruby and bundler gem
-- include: rbenv.yml
-  tags:
-    - rbenv
 
 # 9. install postgresql
 - include: postgresql.yml
