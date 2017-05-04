@@ -206,17 +206,18 @@ You should also create a `roles/users/vars/main.yml` file like so:
 ---
 users:
   - description: circleci
-    deployer: true
+    deployer_user: true
+    ubuntu_user: false
     ssh_key: |
       ssh-rsa AAAAxxxxxxxxxxxAAAA circle-ci
   - description: admin1
-    deployer: true
-    ubuntu: true
+    deployer_user: true
+    ubuntu_user: true
     ssh_key: |
       ssh-rsa AAAAxxxxxxxxxxxAAAA developer@example.com
   - description: developer1
-    deployer: true
-    ubuntu: false
+    deployer_user: true
+    ubuntu_user: false
     ssh_key: |
       ssh-rsa AAAAxxxxxxxxxxxAAAA developer@example.com
 ```
@@ -247,8 +248,8 @@ EXAMPLE PLAYBOOK
 
   roles:
   - role: oozou.rails-app-server-role
-    deployer_authorized_keys: "{{ users | selectattr('deployer','equalto',true) | map(attribute='ssh_key') | list }}"
-    ubuntu_authorized_keys: "{{ users | selectattr('ubuntu','equalto',true) | map(attribute='ssh_key') | list }}"
+    deployer_authorized_keys: "{{ users | selectattr('deployer_user','equalto',true) | map(attribute='ssh_key') | list }}"
+    ubuntu_authorized_keys: "{{ users | selectattr('ubuntu_user','equalto',true) | map(attribute='ssh_key') | list }}"
 
 ```
 
