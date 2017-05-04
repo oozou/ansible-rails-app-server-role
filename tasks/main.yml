@@ -30,7 +30,6 @@
 - include: systemd_services.yml
   tags:
     - systemd_services
-    - deploy_rails_config
 
 # 9. install postgresql
 - include: postgresql.yml

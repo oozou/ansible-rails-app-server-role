@@ -42,4 +42,4 @@
 - name: "restart sidekiq"
   systemd:
     name: sidekiq
-    state: reloaded
+    state: restarted
