@@ -39,7 +39,7 @@ the following:
   * configure nginx
     * setup correct mime types
     * setup a vhost for your app with config options for [modern apps](https://certsimple.com/blog/nginx-http2-load-balancing-config).
-  * install postgresql
+  * install postgresql (if database.host is set to localhost)
     * install python-psycopg2
     * create database
     * create db user
@@ -72,7 +72,7 @@ The following example is based on an ansible group\_vars file. Since this role
 depends on the previously mentioned roles, it also relies on the vars required
 by those roles. The group\_vars yaml below serves as a reference to a working
 var file for completely configuring an Ubuntu 16.05 LTS server as a rails
-application server running puma, nginx, and postgresql.
+application server running puma, nginx, and optionally postgresql.
 
 **IT IS EXTREMELY IMPORTANT TO NOTE THAT THIS FILE CONTAINS SENSITIVE
 INFORMATION THAT MAY BE USED TO COMPROMISE YOUR APP OR SYSTEM SECURITY!
@@ -87,19 +87,6 @@ FILE ANYWHERE!**
 # directories, databases etc.
 #
 app_name: the_next_unicorn_app
-#
-# Linux admin user account setup. This will add an account that has NOPASSWD
-# sudo access. This account is intended for devops and power users. These vars
-# are used by the oozou.add-admin-user ansible role.
-#
-add_admin_user:
-  use_key_url: true
-  use_key_file: false
-  remove_all_other_sudo_rights: true
-  admin:
-    username: admin
-    key_url: https://github.com/oozou.keys
-#
 basic_server_setup:
   additional_packages_to_install:
     - this_list_of_packages
@@ -159,6 +146,10 @@ rbenv_users:
 rbenv_gems:
   - bundler
 # rbenv section end
+#
+# Database settings. If host is set to 'localhost' we will install postgresql
+# on the app server
+#
 database:
   name: '{{app_name}}'
   password: SuperSecretPassword
@@ -312,52 +303,5 @@ DEPENDENCIES
 ------------
 
 * [oozou.basic-server-setup](https://github.com/oozou/ansible-basic-server-setup)
-* [oozou.add-admin-user](https://github.com/oozou/ansible-add-admin-user)
 * [oozou.deploy-rails-env-vars](https://github.com/oozou/ansible-deploy-rails-env-vars)
 * [oozou.ufw](https://github.com/oozou/ansible-ufw)
-
-Here is what my requirements.yml looks like:
-
-```
-- src: https://github.com/jdauphant/ansible-role-nginx.git
-  path: roles/
-- src: https://github.com/zzet/ansible-rbenv-role.git
-  path: roles/
-  name: zzet.ansible-rbenv-role
-- src: https://github.com/zenoamaro/ansible-postgresql
-  path: roles/
-  name: postgresql
-- src: https://github.com/DavidWittman/ansible-redis.git
-  path: roles/
-  name: DavidWittman.redis
-- src: https://github.com/saucelabs-ansible/awscli.git
-  path: roles/
-  name: awscli
-- src: saucelabs-ansible.pip
-  path: roles/
-  version: v2.0.0
-- src: https://github.com/debops/ansible-fail2ban.git
-  path: roles/
-  name: ansible-fail2ban
-- src: https://github.com/geerlingguy/ansible-role-ntp.git
-  path: roles/
-  name: ansible-role-ntp
-- src: https://github.com/mtpereira/ansible-passenger
-  path: roles/
-  name: ansible-passenger
-- src: oozou.ufw
-  path: roles/
-  name: oozou.ufw
-- src: oozou.basic-server-setup
-  path: roles/
-  name: oozou.basic-server-setup
-- src: oozou.add-admin-user
-  path: roles/
-  name: oozou.add-admin-user
-- src: oozou.deploy-rails-env-vars
-  path: roles/
-  name: oozou.deploy-rails-env-vars
-- src: oozou.rails-app-server-role
-  path: roles/
-  name: oozou.rails-app-server-role
-```

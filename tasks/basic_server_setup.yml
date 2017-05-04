@@ -11,6 +11,7 @@
       - libpq-dev
     additional_packages_to_install:
       "{{ default_additional_packages_to_install + basic_server_setup.additional_packages_to_install }}"
+
 - name: "setup firewall"
   include_role:
     name: oozou.ufw
@@ -19,6 +20,3 @@
       - "22"
       - "80"
       - "443"
-- name: "add devops user"
-  include_role:
-    name: oozou.add-admin-user

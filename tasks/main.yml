@@ -1,43 +1,44 @@
+# 0. ensure variables are present
 # 1. install python on ubuntu 16.04
 # 2. install basic packages
 # 3. setup firewall
-# 4. add devops admin user account
 - include: basic_server_setup.yml
   tags:
     - basic_server_setup
 
-# 5. create deployer user account
+# 4. create deployer user account
 - include: deployer.yml
   tags:
     - deployer
 
-# 6. install ntp
+# 5. install ntp
 - include: ntp.yml
   tags:
     - ntp
 
-# 7. install and configure nginx
+# 6. install and configure nginx
 - include: nginx.yml
   tags:
     - nginx
 
-# 9. install systemd files for puma and sidekiq
+# 7. install systemd files for puma and sidekiq
 - include: systemd_services.yml
   tags:
     - systemd_services
 
-# 10. install rbenv, ruby and bundler gem
+# 8. install rbenv, ruby and bundler gem
 - include: rbenv.yml
   tags:
     - rbenv
 
-# 11. install postgresql
+# 9. install postgresql
 - include: postgresql.yml
+  when: database.host == 'localhost'
   tags:
     - postgresql
 
-# 12. make shared directory for capistrano
-# 13. deploy rails config files into shared directory
+# 10. make shared directory for capistrano
+# 11. deploy rails config files into shared directory
 - include: deploy_rails_config.yml
   tags:
     - deploy_rails_config
