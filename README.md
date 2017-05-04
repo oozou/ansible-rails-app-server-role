@@ -293,7 +293,8 @@ The individual tasks are tagged, so you can specify which task to run by passing
 
 Available tasks:
   * basic_server_setup
-  * deployer (use this if you just want to add/remove a user from authorized_keys of deployer)
+  * ubuntu_user (use this if you just want to add/remove a user from authorized_keys of ubuntu)
+  * deployer_user (use this if you just want to add/remove a user from authorized_keys of deployer)
   * ntp
   * nginx
   * systemd_services
