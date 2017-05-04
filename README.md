@@ -26,7 +26,6 @@ the following:
       * open port 22
       * open port 80
       * open port 443
-  * set authorized keys for user ubuntu
   * setup a user account for deployment
     * setup ssh private and public keys
     * add specified ssh public keys to authorized_keys for deployment user
@@ -249,8 +248,6 @@ EXAMPLE PLAYBOOK
   roles:
   - role: oozou.rails-app-server-role
     deployer_authorized_keys: "{{ users | selectattr('deployer_user','equalto',true) | map(attribute='ssh_key') | list }}"
-    ubuntu_authorized_keys: "{{ users | selectattr('ubuntu_user','equalto',true) | map(attribute='ssh_key') | list }}"
-
 ```
 
 INTENDED USAGE
@@ -293,7 +290,6 @@ The individual tasks are tagged, so you can specify which task to run by passing
 
 Available tasks:
   * basic_server_setup
-  * ubuntu_user (use this if you just want to add/remove a user from authorized_keys of ubuntu)
   * deployer_user (use this if you just want to add/remove a user from authorized_keys of deployer)
   * ntp
   * nginx

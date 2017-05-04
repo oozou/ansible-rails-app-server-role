@@ -1,7 +1,0 @@
-- name: Add ssh public keys to authorized_keys of user ubuntu
-  when: ubuntu_authorized_keys is defined
-  authorized_key:
-    user: "ubuntu"
-    key: "{{ ubuntu_authorized_keys|join('\n') }}"
-    state: present
-    exclusive: True
