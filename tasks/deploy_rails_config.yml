@@ -36,10 +36,12 @@
 
 - name: "restart puma"
   systemd:
-    name: puma
+    name: puma.service
     state: reloaded
+    daemon_reload: true
 
 - name: "restart sidekiq"
   systemd:
-    name: sidekiq
+    name: sidekiq.service
     state: restarted
+    daemon_reload: true
