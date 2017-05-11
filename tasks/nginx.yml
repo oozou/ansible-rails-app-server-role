@@ -28,11 +28,12 @@
   file: path=/etc/nginx/sites-enabled/default.conf state=absent
 
 - name: copy vhost
-  template: src=nginx.host.conf.j2 dest=/etc/nginx/sites-available/{{app_name}}
+  template:  src="{{template_dir}}/nginx.host.conf.j2"
+             dest="/etc/nginx/sites-available/{{app_name}}"
 
 - name: copy nginx.conf
-  template: src=nginx.conf.j2
-            dest=/etc/nginx/nginx.conf
+  template:  src="{{template_dir}}/nginx.conf.j2"
+             dest="/etc/nginx/nginx.conf"
 
 - name: unlink default vhost
   action: file path=/etc/nginx/sites-enabled/default
