@@ -2,5 +2,13 @@
 - name: install systemd puma.service
   template: src=puma.service.j2 dest=/lib/systemd/system/puma.service owner=root group=root
 
+- service:
+    name: puma
+    enabled: yes
+
 - name: install systemd sidekiq.service
   template: src=sidekiq.service.j2 dest=/lib/systemd/system/sidekiq.service owner=root group=root
+
+- service:
+    name: sidekiq
+    enabled: yes
