@@ -1,7 +1,7 @@
 ---
 - name: "Install rbenv, plugins and rubies"
   include_role:
-    name: zzet.ansible-rbenv-role
+    name: oozou.ansible-rbenv-role
   vars:
     rbenv_repo: "https://github.com/rbenv/rbenv.git"
     rbenv_root: "{% if rbenv.env == 'system' %}/usr/local/rbenv{% else %}{{deployer.home_dir}}/.rbenv{% endif %}"
