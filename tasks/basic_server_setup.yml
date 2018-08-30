@@ -9,11 +9,3 @@
       - libpq-dev
     additional_packages_to_install:
       "{{ default_additional_packages_to_install + basic_server_setup.additional_packages_to_install }}"
-
-- name: "setup firewall"
-  include_role:
-    name: oozou.ufw
-  vars:
-    ufw_allowed_ports:
-      - "22"
-      - "80"
